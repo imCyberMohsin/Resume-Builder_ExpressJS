@@ -1,0 +1,9 @@
+/* *{
+    font-family: ;
+} */
+
+.error{
+  color: red;
+  margin: 3px 0;
+  font-weight: 500;
+}
