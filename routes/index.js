@@ -16,12 +16,15 @@ router.get('/', (req, res) => {
 //? Login View
 router.get('/login', (req, res) => {
     res.render('login', { error: req.flash('error') });
+    if (req.isAuthenticated()) {
+        return res.redirect('/myResume');
+    }
 })
 // Login 
 router.post('/login', passport.authenticate('local', {
-    successRedirect: "/resumeInputs",
+    successRedirect: "/myResume",
     failureRedirect: '/login',
-    failureFlash: true, // enable flash messages
+    failureFlash: true,
 }), function (req, res) {
 });
 
@@ -45,24 +48,97 @@ router.post('/signup', (req, res, next) => {
         })
 })
 
-// Resume Data Inputs
-router.get('/resumeInputs', isLoggedIn, async (req, res) => {
-    res.render('resumeInputs')
-})
-router.post('/resumeInputs', isLoggedIn, async (req, res) => {
-    const data = new resumeModel({
-        // Header Part
-        name: req.body.name,
-        profession: req.body.profession,
-        mail: req.body.mail,
-        phone: req.body.phone,
-        cityState: req.body.citystate,
-        githubLink: req.body.githublink,
-        linkedinLink: req.body.linkedinlink,
-    })
+//? myResume Info (Inputs)
+router.get('/myResumeInfo', isLoggedIn, async (req, res) => {
+    try {
+        const user = await userModel.findOne({ username: req.session.passport.user })
+            .populate('resumeData'); // Populate the resumeData field
+        console.log('Username:', req.session.passport.user);
+        console.log('User Data:', user);
+        res.render('myResumeInfo', { user });
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-    await data.save();
-    res.redirect('/');
+router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
+    try {
+        const userData = await userModel.findOne({ username: req.session.passport.user });
+        let data;
+        if (userData.resumeData && userData.resumeData.length > 0) {
+            // If resumeData exists, attempt to find it
+            data = await resumeModel.findById(userData.resumeData[0]); // Assuming resumeData is an array
+
+            if (!data) {
+                // If data is null, create a new resumeModel
+                console.log('Creating new resumeData');
+                data = new resumeModel({
+                    name: req.body.name,
+                    profession: req.body.profession,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    cityState: req.body.cityState,
+                    githubLink: req.body.githubLink,
+                    linkedinLink: req.body.linkedinLink,
+                    user: userData._id
+                });
+
+                // Save the new resumeData
+                await data.save();
+
+                // Update the user reference with the new resumeData
+                userData.resumeData = [data._id]; // Assuming resumeData is an array
+                await userData.save();
+            } else {
+                // If data is found, update the resumeData fields
+                console.log('Updating existing resumeData');
+                data.name = req.body.name;
+                data.profession = req.body.profession;
+                data.email = req.body.email;
+                data.phone = req.body.phone;
+                data.cityState = req.body.cityState;
+                data.githubLink = req.body.githubLink;
+                data.linkedinLink = req.body.linkedinLink;
+
+                // Save the updated resumeData
+                await data.save();
+            }
+        } else {
+            // If resumeData doesn't exist, create a new one
+            console.log('Creating new resumeData');
+            data = new resumeModel({
+                name: req.body.name,
+                profession: req.body.profession,
+                email: req.body.email,
+                phone: req.body.phone,
+                cityState: req.body.cityState,
+                githubLink: req.body.githubLink,
+                linkedinLink: req.body.linkedinLink,
+                user: userData._id
+            });
+
+            // Save the new resumeData
+            await data.save();
+
+            // Update the user reference with the new resumeData
+            userData.resumeData = [data._id]; // Assuming resumeData is an array
+            await userData.save();
+        }
+
+        res.redirect('/myResume');
+    } catch (error) {
+        console.error('Error saving or updating resume data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
+// Resume Display for specific user
+router.get('/myResume', isLoggedIn, async (req, res) => {
+    const user = await userModel.findOne({ username: req.session.passport.user }).populate('resumeData');
+    res.render('myResume', { user });
+    console.log(user.resumeData);
 })
 
 // Logout

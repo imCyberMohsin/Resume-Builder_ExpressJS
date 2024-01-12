@@ -1,0 +1,79 @@
+<%- include ('./partials/Header.ejs') %>
+<%- include ('./partials/NavbarLoggedin.ejs') %>
+
+
+<form action="/myResumeInfo" method="post" class="p-5">
+    <div class="personal-Details">
+        <div class="heading py-3">
+            <h1 class="w-full text-white text-3xl border-b-[1px]">Personal Details</h1>
+        </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-4 pl-2">
+            <% if (user.resumeData && user.resumeData.length > 0) { %>
+                <% user.resumeData.forEach((data) => { %>
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input name="name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.name %>" placeholder="Full Name" required>
+                    </div>
+                    <div>
+                        <label for="profession" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Profession</label>
+                        <input name="profession" type="text" id="profession" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.profession %>" placeholder="Eg: Web Developer" required>
+                    </div>  
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+                        <input name="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.email %>" placeholder="name@comapany.com" required>
+                    </div> 
+                    <div>
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
+                        <input name="phone" type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+918234545678" value="<%= data.phone %>"  pattern="\+\d{1,2}\s?\d{10}" required>
+                    </div>
+                    <div>
+                        <label for="cityState" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City, State</label>
+                        <input name="cityState" type="text" id="cityState" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.cityState %>" placeholder="Eg: Kolkata, West Bengal" required>
+                    </div> 
+                    <div>
+                        <label for="githubLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Github Profile</label>
+                        <input name="githubLink" type="url" id="githubLink" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.githubLink%>" placeholder="https://github.com/username" required>
+                    </div>
+                    <div>
+                        <label for="linkedinLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile</label>
+                        <input name="linkedinLink" type="url" id="linkedinLink" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.linkedinLink %>" placeholder="https://github.com/username" required>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input name="name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Full Name" required>
+                    </div>
+                    <div>
+                        <label for="profession" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Profession</label>
+                        <input name="profession" type="text" id="profession" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Eg: Web Developer" required>
+                    </div>  
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+                        <input name="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="name@comapany.com" required>
+                    </div> 
+                    <div>
+                        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
+                        <input name="phone" type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+918234545678" value=""  pattern="\+\d{1,2}\s?\d{10}" required>
+                    </div>
+                    <div>
+                        <label for="cityState" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City, State</label>
+                        <input name="cityState" type="text" id="cityState" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Eg: Kolkata, West Bengal" required>
+                    </div> 
+                    <div>
+                        <label for="githubLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Github Profile</label>
+                        <input name="githubLink" type="url" id="githubLink" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="https://github.com/username" required>
+                    </div>
+                    <div>
+                        <label for="linkedinLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile</label>
+                        <input name="linkedinLink" type="url" id="linkedinLink" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="https://github.com/username" required>
+                    </div>
+                <% } %>
+        </div>
+    </div>
+    
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Build Resume</button>
+</form>
+
+
+<%- include ('./partials/Footer.ejs') %>

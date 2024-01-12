@@ -13,10 +13,12 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String,
     // Reference to the resumeData
-    resumeData: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'resumedata'
-    }
+    resumeData: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'resumedata'
+        }
+    ]
 })
 
 userSchema.plugin(passportLocalMongoose);
