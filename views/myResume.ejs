@@ -23,22 +23,28 @@
                 </div>
                 <div class="border-b-[1px] border-b-black py-1"></div>
             </div>
-        <% }) %>
-    
-        <!-- Other Parts -->
-        <div class="px-8">
-            <!-- Skills section -->
-            <div class="skills py-2">
-                <h1 class="text-xl font-semibold">SKILLS</h1>
-                <ul class="leading-tight text-sm">
-                    <li>• Your x skill</li>
-                    <li>• Your x skill</li>
-                    <li>• Your x skill</li>
-                    <li>• Your x skill</li>
-                    <li>• Your x skill</li>
-                    <li>• Your x skill</li>
-                </ul>
+            
+            <!-- Other Parts -->
+            <div class="px-8">
+                <!-- Skills section -->
+                <div class="skills py-2">
+                    <h1 class="text-xl font-semibold">SKILLS</h1>
+                    <div class="leading-tight text-sm flex gap-5">
+                    <div class=" font-semibold pl-1">
+                        <p>• LANGUAGES</p>
+                        <p>• LIBRARIES/FRAMEWORKS</p>
+                        <p>• DATABASES</p>
+                        <p>• TOOLS/PLATFORMS</p>
+                    </div>
+                    <div>
+                        <p class="justify-start"><%= data.languages %></p>
+                        <p class="justify-start"><%= data.frameworks %></p>
+                        <p class="justify-start"><%= data.databases %></p>
+                        <p class="justify-start"><%= data.tools %></p>
+                    </div>
+                </div>
             </div>
+        <% }) %>
     
             <!-- Education section -->
             <div class="education py-2">

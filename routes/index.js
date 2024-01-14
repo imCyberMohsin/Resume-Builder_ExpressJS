@@ -74,6 +74,7 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
                 // If data is null, create a new resumeModel
                 console.log('Creating new resumeData');
                 data = new resumeModel({
+                    // Personal Details
                     name: req.body.name,
                     profession: req.body.profession,
                     email: req.body.email,
@@ -81,6 +82,13 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
                     cityState: req.body.cityState,
                     githubLink: req.body.githubLink,
                     linkedinLink: req.body.linkedinLink,
+
+                    // Skills
+                    languages: req.body.languages,
+                    frameworks: req.body.frameworks,
+                    databases: req.body.databases,
+                    tools: req.body.tools,
+
                     user: userData._id
                 });
 
@@ -101,6 +109,12 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
                 data.githubLink = req.body.githubLink;
                 data.linkedinLink = req.body.linkedinLink;
 
+                // Skills
+                data.languages = req.body.languages;
+                data.frameworks = req.body.frameworks;
+                data.databases = req.body.databases;
+                data.tools = req.body.tools;
+
                 // Save the updated resumeData
                 await data.save();
             }
@@ -108,6 +122,7 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
             // If resumeData doesn't exist, create a new one
             console.log('Creating new resumeData');
             data = new resumeModel({
+                // Personal Details
                 name: req.body.name,
                 profession: req.body.profession,
                 email: req.body.email,
@@ -115,6 +130,13 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
                 cityState: req.body.cityState,
                 githubLink: req.body.githubLink,
                 linkedinLink: req.body.linkedinLink,
+
+                // Skills
+                languages: req.body.languages,
+                frameworks: req.body.frameworks,
+                databases: req.body.databases,
+                tools: req.body.tools,
+
                 user: userData._id
             });
 

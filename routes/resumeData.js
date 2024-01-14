@@ -10,6 +10,13 @@ const resumeData = mongoose.Schema({
     cityState: String,
     githubLink: String,
     linkedinLink: String,
+
+    // Skills
+    languages: String,
+    frameworks: String,
+    databases: String,
+    tools: String,
+
     // Reference to the user
     user: [
         {

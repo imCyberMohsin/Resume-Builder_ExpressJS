@@ -3,16 +3,17 @@
 
 
 <form action="/myResumeInfo" method="post" class="p-5">
+    <!-- Personal Details -->
     <div class="personal-Details">
         <div class="heading py-3">
-            <h1 class="w-full text-white text-3xl border-b-[1px]">Personal Details</h1>
+            <h1 class="w-full text-white text-3xl border-b-[1px]">PERSONAL DETAILS</h1>
         </div>
         <div class="grid gap-6 mb-6 md:grid-cols-4 pl-2">
             <% if (user.resumeData && user.resumeData.length > 0) { %>
                 <% user.resumeData.forEach((data) => { %>
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input name="name" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.name %>" placeholder="Full Name" required>
+                        <input name="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.name %>" placeholder="Full Name" required>
                     </div>
                     <div>
                         <label for="profession" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Profession</label>
@@ -68,6 +69,52 @@
                         <label for="linkedinLink" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile</label>
                         <input name="linkedinLink" type="url" id="linkedinLink" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="https://github.com/username" required>
                     </div>
+                <% } %>
+        </div>
+    </div>
+    <!-- Skills -->
+    <div class="skills">
+        <div class="heading py-3">
+            <h1 class="w-full text-white text-3xl border-b-[1px]">SKILLS</h1>
+        </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-4 pl-2">
+            <% if (user.resumeData && user.resumeData.length > 0) { %>
+                <% user.resumeData.forEach((data) => { %>
+                    <div>
+                        <label for="languages" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PROGRAMMING LANGUAGES</label>
+                        <input name="languages" type="text" id="languages" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.languages %>" placeholder="Eg: Java, Python" required>
+                    </div>
+                    <div>
+                        <label for="frameworks" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LIBRARIES/FRAMEWORKS</label>
+                        <input name="frameworks" type="text" id="frameworks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.frameworks %>" placeholder="Eg: React.js, Express.js" required>
+                    </div>  
+                    <div>
+                        <label for="databases" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATABASES</label>
+                        <input name="databases" type="text" id="databases" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<%= data.databases %>" placeholder="Eg: MongoDB, mySQL" required>
+                    </div> 
+                    <div>
+                        <label for="tools" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TOOLS/PLATFORMS</label>
+                        <input name="tools" type="text" id="tools" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Eg: Git, Github" value="<%= data.tools %>"  required>
+                    </div>
+                    
+                <% }); %>
+            <% } else { %>
+                <div>
+                    <label for="languages" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PROGRAMMING LANGUAGES</label>
+                    <input name="languages" type="text" id="languages" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Eg: Java, Python" required>
+                </div>
+                <div>
+                    <label for="frameworks" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LIBRARIES/FRAMEWORKS</label>
+                    <input name="frameworks" type="text" id="frameworks" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Eg: React.js, Express.js" required>
+                </div>  
+                <div>
+                    <label for="databases" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATABASES</label>
+                    <input name="databases" type="text" id="databases" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="" placeholder="Eg: MongoDB, mySQL" required>
+                </div> 
+                <div>
+                    <label for="tools" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TOOLS/PLATFORMS</label>
+                    <input name="tools" type="text" id="tools" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Eg: Git, Github" value=""  required>
+                </div>
                 <% } %>
         </div>
     </div>
