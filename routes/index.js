@@ -15,10 +15,12 @@ router.get('/', (req, res) => {
 
 //? Login View
 router.get('/login', (req, res) => {
-    res.render('login', { error: req.flash('error') });
     if (req.isAuthenticated()) {
         return res.redirect('/myResume');
     }
+    // Fixed Multiple Headers issue when signup
+    // This Line will not be executed if the user is already authenticated
+    res.render('login', { error: req.flash('error') });
 })
 // Login 
 router.post('/login', passport.authenticate('local', {
