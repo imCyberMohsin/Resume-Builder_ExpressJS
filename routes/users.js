@@ -2,7 +2,8 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/resumeDB');
+// mongoose.connect('mongodb://127.0.0.1:27017/resumeDB');  // Local
+mongoose.connect(process.env.MONGO_URL);  // MongoAtlas
 const db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.on('open', () => console.log("Connected To resumeDB"));
