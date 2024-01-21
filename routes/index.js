@@ -34,21 +34,28 @@ router.post('/login', passport.authenticate('local', {
 router.get('/signup', (req, res) => {
     res.render('signup');
 })
-// signup Route
+// Signup Route
 router.post('/signup', (req, res, next) => {
     const userData = new userModel({
         fullname: req.body.fullname,
         username: req.body.username,
         email: req.body.email,
-    })
+    });
 
-    userModel.register(userData, req.body.password)
-        .then(function () {
-            passport.authenticate('local')(req, res, function () {
-                res.redirect('/login');
-            })
-        })
-})
+    userModel.register(userData, req.body.password, async (err) => {
+        if (err) {
+            console.error('Error registering user:', err);
+            return res.redirect('/signup');  // Redirect to signup page in case of an error
+        }
+        //! Removed Automatic login after Signup
+        // passport.authenticate('local')(req, res, function () {
+        //     res.redirect('/login');
+        // });
+        // Redirect to the login page after successful registration
+        res.redirect('/login');
+    });
+});
+
 
 //? myResume Info (Inputs)
 router.get('/myResumeInfo', isLoggedIn, async (req, res) => {
