@@ -1,9 +1,9 @@
 <%- include ('./partials/Header.ejs') %>
 <%- include ('./partials/NavbarLoggedin.ejs') %>
 
-<div class="w-full flex justify-center">
+<div class="w-full flex flex-col items-center justify-center gap-5">
     <!-- Resume 1 -->
-    <div class="main w-[595px]  bg-white flex flex-col">
+    <div class="main w-[795px]  bg-white flex flex-col">
         <% user.resumeData.forEach((data)=> { %>
             <!-- Top Header Section -->
             <div class="top-header w-full text-center py-2 flex flex-col leading-3">
@@ -126,9 +126,66 @@
                 </div>
             </div>
         </div>
-    
     </div>
-
+    <button id="downloadButton" class="m-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-white transition-all duration-200">Download PDF</button>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+const downloadButton = document.getElementById("downloadButton");
+
+    downloadButton.addEventListener("click", function () {
+        // Target the specific element by its class name
+        const targetElement = document.querySelector(".main");
+
+        if (targetElement) {
+        // Initialize jsPDF
+        const pdf = new jspdf.jsPDF({
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        });
+
+        // Convert the target element to canvas and add it to the PDF
+        html2pdf(targetElement, {
+        //   margin: 5, // Adjust the margin as needed
+            filename: 'resume.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).then(function (canvas) {
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imageWidth = canvas.width;
+            const imageHeight = canvas.height;
+            const aspectRatio = imageWidth / imageHeight;
+
+            // Calculate the width and height to maintain the aspect ratio and fit within the page
+            let pdfImageWidth = pdfWidth;
+            let pdfImageHeight = pdfImageWidth / aspectRatio;
+
+        if (pdfImageHeight > pdfHeight) {
+            pdfImageHeight = pdfHeight;
+            pdfImageWidth = pdfImageHeight * aspectRatio;
+        }
+
+        // Calculate the center position
+        const xPos = (pdfWidth - pdfImageWidth) / 2;
+        const yPos = (pdfHeight - pdfImageHeight) / 2;
+
+        // Add the image to the PDF
+        pdf.addImage(canvas.toDataURL('image/jpeg'), 'JPEG', xPos, yPos, pdfImageWidth, pdfImageHeight);
+        
+        // Save the PDF
+        pdf.save('resume.pdf');
+        });
+    } else {
+        console.error('Element with class name "main" not found.');
+    }
+});
+});
+</script>
 
 <%- include ('./partials/Footer.ejs') %>
