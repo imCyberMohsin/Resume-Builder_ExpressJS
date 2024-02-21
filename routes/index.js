@@ -62,8 +62,8 @@ router.get('/myResumeInfo', isLoggedIn, async (req, res) => {
     try {
         const user = await userModel.findOne({ username: req.session.passport.user })
             .populate('resumeData'); // Populate the resumeData field
-        console.log('Username:', req.session.passport.user);
-        console.log('User Data:', user);
+        // console.log('Username:', req.session.passport.user);
+        // console.log('User Data:', user);
         res.render('myResumeInfo', { user });
     } catch (error) {
         console.error('Error fetching user data:', error);
@@ -169,7 +169,7 @@ router.post('/myResumeInfo', isLoggedIn, async (req, res) => {
 router.get('/myResume', isLoggedIn, async (req, res) => {
     const user = await userModel.findOne({ username: req.session.passport.user }).populate('resumeData');
     res.render('myResume', { user });
-    console.log(user.resumeData);
+    // console.log(user.resumeData);
 })
 
 // Logout
